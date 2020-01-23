@@ -36,8 +36,8 @@
            {{$student['batch']}}
             </td>
             
-            <td><a href=""><button>View Summary</button>
-           <!-- </a><a href="{{url('pay',$student->id)}}"><button>Pay</button></a></td> -->
+            <td><a href="{{url('summary',$student->id)}}"><button>View Summary</button>
+           </a></td>
         </tr>
         @endforeach
     </table>

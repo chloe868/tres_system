@@ -43,19 +43,47 @@
     <br/>
       <h1 class="tit">Add Data</h1>
       <br/>
-      <form method="post" action="{{route('store',$student->id)}}">  
+      <form method="post" action="{{route('stores',$student->id)}}">  
         {{csrf_field()}}
+        
+  
         <div class="form-group">
-          <input type="hidden" name="id" class="form-control" placeholder="" value="{{$student->id}}"/>
+          <select class="form-control" name="month">
+          <option>---Choose Month---</option>
+            <option>January</option>
+            <option>February</option>
+            <option>March</option>
+            <option>April</option>
+            <option>May</option>
+            <option>June</option>
+            <option>July</option>
+            <option>August</option>
+            <option>September</option>
+            <option>October</option>
+            <option>November</option>
+            <option>December</option>
+          </select>
         </div>
         <div class="form-group">
-          <input type="text" name="month" class="form-control" placeholder="Month " value=""/>
+          <select class="form-control" name="year">
+          <option>---Choose Year---</option>
+            <option>2018</option>
+            <option>2019</option>
+            <option>2020</option>
+            <option>2021</option>
+            <option>2022</option>
+            <option>2023</option>
+            <option>2024</option>
+            <option>2025</option>
+            <option>2026</option>
+            <option>2027</option>
+            <option>2028</option>
+            <option>2029</option>
+            <option>2030</option>
+          </select>
         </div>
         <div class="form-group">
-          <input type="number" name="year" class="form-control" placeholder="Year " value=""/>
-        </div>
-        <div class="form-group">
-          <input type="number" name="amount" class="form-control" placeholder="Amount" value=""/>
+          <input type="number" name="amount" class="form-control" placeholder="Input Amount" value=""/>
         </div>
         <div class="form-group">
           <input type="date" name="dateofpayment" class="form-control" placeholder="Date  " value=""/>

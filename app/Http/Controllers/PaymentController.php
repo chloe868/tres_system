@@ -148,7 +148,8 @@ class PaymentController extends Controller
     }
     public function welcome(Request $request){
         // dd(Human::get());
-        $students = tblscholars::all();
+        // $students = tblscholars::all()->orderBy('id','DESC');
+        $students= tblscholars::orderBy('batch','desc')->get();
         // $humans =Human::where('id',$request->id)->get();
         return view('student.welcome',compact('students'));
     }
@@ -172,12 +173,7 @@ class PaymentController extends Controller
 
     }
 
-    public function pay($id){
-
-        $student = tblscholars::find($id);
-        return view('student.pay',compact('student'));
-    }
-
+    
 
 
 

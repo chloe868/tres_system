@@ -21,17 +21,20 @@
 
 // Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
 Route::get('welcome', 'PaymentController@welcome')->name('update');
 Route::resource('student','PaymentController');
 Route::post('/dashboard/store', 'PaymentController@store')->name('store');
-// Route::post('/login', ['as' => 'login', 'uses' => 'LoginController@getLogin']);
-Route::get('/dele
-te/{id}','PaymentController@delete');
+Route::get('/delete/{id}','PaymentController@delete');
 Route::post('/update/{id}','PaymentController@update')->name('update');
-Route::get('pay/{id}','PaymentController@pay')->name('pay');
-// Route::get('/searchcontent','PaymentController@searchcontent')->name('searchcontent');
-Route::post('/dashboard/store/{id}', 'TablePaymentController@store')->name('store');
+
+
+
+
+Route::post('stores/{id}', 'TablePaymentController@stores')->name('stores');
+// Route::post('summary/{id}', 'TablePaymentController@summary')->name('summary');
+// Route::resource('student','TablePaymentController');
+Route::get('summary/{id}','TablePaymentController@summary');
+Route::get('pay/{id}','TablePaymentController@pay')->name('pay');
 
 
 // Route::get('/live_search', 'LiveSearch@index');

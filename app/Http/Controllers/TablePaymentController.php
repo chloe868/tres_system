@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use Illuminate\Http\Request;
 
 use App\tblpayments;
+use App\tblscholars;
 class TablePaymentController extends Controller
 {
     /**
@@ -12,9 +13,24 @@ class TablePaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function summary($id)
     {
-        //
+          // $students = tblscholars::all();
+        
+   $students= DB::table('tblscholars as t1')
+
+       ->join("tblpayments as t2", "t2.payid","=","t1.id")  
+       ->where('t1.id', '=', $id)
+
+  ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid")
+       
+  
+        
+   
+  
+         ->get()->toArray();
+       return view('student.summary',compact('students'));
+   
     }
 
     /**
@@ -33,7 +49,7 @@ class TablePaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function stores(Request $request,$id)
     {
         $this->validate($request,[
           
@@ -47,7 +63,7 @@ class TablePaymentController extends Controller
 
         ]);
         $student = new tblpayments([
-            'id' => $id,
+            'payid' => $id,
             'month' => $request->get('month'),
             'year' => $request->get('year'),
             'amount' => $request->get('amount'),
@@ -106,4 +122,13 @@ class TablePaymentController extends Controller
     {
         //
     }
+    public function pay($id){
+
+        $student = tblscholars::find($id);
+        return view('student.pay',compact('student'));
+    }
+
+   
+        
+      
 }

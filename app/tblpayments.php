@@ -8,14 +8,18 @@ class tblpayments extends Model
 {
     public $timestamps = false;
     protected $fillable =[
-        'id',
+        'payid',
         'month',
         'year',
         'amount',
         'dateofpayment',
-       
-        
-
-
+    ];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'id'
     ];
 }
