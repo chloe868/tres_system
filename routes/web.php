@@ -35,6 +35,12 @@ Route::post('stores/{id}', 'TablePaymentController@stores')->name('stores');
 // Route::resource('student','TablePaymentController');
 Route::get('summary/{id}','TablePaymentController@summary');
 Route::get('pay/{id}','TablePaymentController@pay')->name('pay');
+Route::get('summarybatch/{batch}','TablePaymentController@summarybatch')->name('summarybatch');
+Route::get('total/{id}','TablePaymentController@total');
+Route::get('summaryYear/{batch}','TablePaymentController@summaryYear');
+Route::get('summaryMonth','TablePaymentController@summaryMonth')->name('summaryMonth');
+
+
 
 
 // Route::get('/live_search', 'LiveSearch@index');

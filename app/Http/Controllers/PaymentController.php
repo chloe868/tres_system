@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\tblscholars;
+use App\tblpayments;
 use Illuminate\Support\Facades\DB;
 class PaymentController extends Controller
 {
@@ -57,7 +58,27 @@ class PaymentController extends Controller
            
             
         ]);
+
         $student->save();
+        $ID=$student->id;
+
+        $students = new tblpayments([
+            'month' => '0',
+            'payid' => $ID,
+            'year' => 0,
+            'amount' => 0,
+            'dateofpayment' => date('Y-m-d H:i:s'),
+           
+            
+           
+            
+        ]);
+        $students->save();
+        
+
+
+
+        
         // return redirect()->route('welcome');
         return redirect('/welcome');
 
@@ -154,14 +175,14 @@ class PaymentController extends Controller
         return view('student.welcome',compact('students'));
     }
 
-    public function searchcontent(Request $request){
-        // dd(Human::get());
-        // $student = Student::find($id);
-        $student =tblscholars::where('last_name','like','%' .$request.'%')->orderBy('id')->paginate(5); 
-        return view('student.searchcontent',['student'=>$student]);
-        // $humans =Human::where('id',$request->id)->get();
-        // return view('student.searchcontent',compact('students'));
-    }
+    // public function searchcontent(Request $request){
+    //     // dd(Human::get());
+    //     // $student = Student::find($id);
+    //     $student =tblscholars::where('last_name','like','%' .$request.'%')->orderBy('id')->paginate(5); 
+    //     return view('student.searchcontent',['student'=>$student]);
+    //     // $humans =Human::where('id',$request->id)->get();
+    //     // return view('student.searchcontent',compact('students'));
+    // }
 
 
 

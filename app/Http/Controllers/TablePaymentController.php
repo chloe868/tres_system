@@ -18,20 +18,23 @@ class TablePaymentController extends Controller
           // $students = tblscholars::all();
         
    $students= DB::table('tblscholars as t1')
-
-       ->join("tblpayments as t2", "t2.payid","=","t1.id")  
-       ->where('t1.id', '=', $id)
-
-  ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid")
-       
-  
         
+
+        ->join("tblpayments as t2", "t2.payid","=","t1.id")  
+        
+        ->where('t1.id', '=', $id)
+        ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid","t1.last_name","t1.first_name","t1.middle_name")
+        ->get()
+        ->toArray();
+            return view('student.summary',compact('students'));
+            dd($students);
    
-  
-         ->get()->toArray();
-       return view('student.summary',compact('students'));
-   
+
+
+            
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -128,7 +131,57 @@ class TablePaymentController extends Controller
         return view('student.pay',compact('student'));
     }
 
-   
+
+    public function summarybatch($batch){
+
+        // $students= tblscholars::orderBy('batch','desc')->get();
+        $students =tblscholars::where('batch',$batch)->get();
+      
+        $student = DB::table('tblpayments')
+        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+        ->where('tblscholars.batch', '=', $batch)
+        ->sum('tblpayments.amount');
+        
+        // return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
+        return view('student.summarybatch',compact('students'));
+
+    }
+    public function total($id)
+    {
+          // $students = tblscholars::all();
+        
+          $students = DB::table('tblpayments')
+          ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+          ->where('tblscholars.id', '=', $id)
+          ->sum('tblpayments.amount');
+          
+          return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
+
+                   
+            
+    }
+    function summaryYear($batch ){
+        // $myMonth = $request->get('year');
+        $students = DB::table('tblpayments')
+        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+        ->where('tblscholars.batch', '=', $batch)
+        ->sum('tblpayments.amount');
+        
+        return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
+
+
+    }
+    function summaryMonth($month ){
+        // $myMonth = $request->get('year');
+        $students = DB::table('tblpayments')
+        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+        ->where('tblpayments.month', '=', $month)
+        ->sum('tblpayments.amount');
+        
+        return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
+
+
+    }
         
       
 }
