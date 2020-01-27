@@ -20,6 +20,7 @@ Route::get('/dashboard', 'ScholarController@home')->name('home');
 Route::get('/dashboard/add', 'ScholarController@add_view')->name('add');
 Route::get('/dashboard/edit/{id}','ScholarController@edit')->name('edit');
 Route::post('/dashboard/store', 'ScholarController@store')->name('store');
+Route::get('/dashboard/send/email','SendController@sendEmail');
 //Route::post('/dashboard/delete/{id?}','ScholarController@delete')->name('delete');
 Route::get('/dashboard/delete/{id?}','ScholarController@delete')->name('delete');
 Route::post('/dashboard/update/{id}','ScholarController@update')->name('update');
