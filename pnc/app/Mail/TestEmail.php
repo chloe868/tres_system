@@ -29,6 +29,6 @@ class TestEmail extends Mailable
     public function build()
     {
         return $this->view('email.test')
-                    ->subject('This is Jorgielyn');
+                    ->subject('Parent Counterpart');
     }
 }

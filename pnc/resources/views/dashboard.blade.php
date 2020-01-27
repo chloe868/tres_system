@@ -9,10 +9,11 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="{{url('css/form.css')}}">
 
 <body>
 
-<center><h2>Human in List</h2></center>
+<center><h2>LIST OF PAYEE</h2></center>
 @if(Session::has('success'))
         <div class="alert alert-success">
             {{ Session::get('success') }}
@@ -26,11 +27,12 @@
   <table id="myTable">
     <thead>
       <tr>
+        <th>First Name</th>
+        <th>Middle Name</th>
         <th>Last Name</th>
+        <th>Batch</th>
+        <th>Phone Number</th>
         <th>Email</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Address</th>
         <th>Action</th>
         
       </tr>
@@ -38,15 +40,17 @@
     <tbody>
     @foreach($scholar as $scholars)
       <tr>
+      <td>{{$scholars->first_name}}</td>
+      <td>{{$scholars->middle_name}}</td>
       <td>{{$scholars->last_name}}</td>
+      <td>{{$scholars->batch}}</td>
+      <td>{{$scholars->phone_number}}</td>
       <td>{{$scholars->email}}</td>
-      <td>{{$scholars->age}}</td>
-      <td>{{$scholars->gender}}</td>
-      <td>{{$scholars->address}}</td>
       <td>
       
-      <a href="{{route('edit', $scholars->id)}}" class="btn btn-warning" type="button" value="EDIT">Edit</a>
-      <a href="{{route('delete', ['id'=>$scholars->id])}}" class="btn btn-danger" type="button" value="DELETE">DELETE</a>
+      <a href="{{route('edit', $scholars->id)}}" class="btn btn-warning" type="button" value="EDIT">EDIT</a>
+      <a href="{{route('mail', $scholars->id)}}" class="btn btn-primary" type="button" value="EDIT">MESSAGE</a>
+      <!-- <a href="{{route('delete', ['id'=>$scholars->id])}}" class="btn btn-danger" type="button" value="DELETE">VIEW SUMMARY</a> -->
       <form action="">
         
       </form>
@@ -56,7 +60,7 @@
     </tbody>
 
   </table>
-  <center><a href="{{route ('add')}}" class="btn btn-success" type="button" value="ADD">ADD HUMAN</a></center>
+  <center><a href="{{route ('add')}}" class="btn btn-success" type="button" value="ADD">ADD LIST</a></center>
  
 
 </body>
