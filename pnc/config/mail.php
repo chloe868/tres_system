@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'irangabriellef14@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'PNCounterpartNotif'),
+        'name' => env('MAIL_FROM_NAME', 'PNCounterpart'),
     ],
 
     /*

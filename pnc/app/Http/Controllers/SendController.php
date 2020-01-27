@@ -11,7 +11,10 @@ class SendController extends Controller
     {
         $data =['message' => 'this is a test'];
 
+        \Mail ::to('mellynegrace.nadela@student.passerellesnumeriques.org')->send(new TestEmail($data));
         \Mail ::to('jorgielyn.iran@student.passerellesnumeriques.org')->send(new TestEmail($data));
+        \Mail ::to('cherrymae.herrera@student.passerellesnumeriques.org')->send(new TestEmail($data));
+        \Mail ::to('herreracherrymae@gmail.com')->send(new TestEmail($data));
 
         return redirect()->back()->with('success','Email sent successfully. Check your email');
     }
