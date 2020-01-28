@@ -53,21 +53,31 @@
             </div>
 
             <div class="form-group">
-                <label for="lname">Gender</label>
-                <input type="text" id="lname" name="gender" placeholder="" value="{{ old('gender') }}">
+                <label for="lname">Batch</label>
+                <input type="text" id="lname" name="batch" placeholder="" value="{{ old('batch') }}">
                 <span class="error">
-                    @if($errors->has('gender'))
-                    {{ $errors->first('gender') }}
+                    @if($errors->has('batch'))
+                    {{ $errors->first('batch') }}
                     @endif
                 </span>
             </div>
 
             <div class="form-group">
-                <label for="lname">Address</label>
-                <input type="text" id="lname" name="address" placeholder="" value="{{ old('address') }}">
+                <label for="lname">Phone Number</label>
+                <input type="text" id="lname" name="phone_number" placeholder="" value="{{ old('phone_number') }}">
                 <span class="error">
-                    @if($errors->has('address'))
-                    {{ $errors->first('address') }}
+                    @if($errors->has('phone_number'))
+                    {{ $errors->first('phone_number') }}
+                    @endif
+                </span>
+            </div>
+
+              <div class="form-group">
+                <label for="lname">Email</label>
+                <input type="text" id="lname" name="email" placeholder="" value="{{ old('email') }}">
+                <span class="error">
+                    @if($errors->has('email'))
+                    {{ $errors->first('email') }}
                     @endif
                 </span>
             </div>

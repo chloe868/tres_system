@@ -23,6 +23,7 @@ Route::post('/dashboard/store', 'ScholarController@store')->name('store');
 Route::get('/dashboard/delete/{id?}','ScholarController@delete')->name('delete');
 Route::post('/dashboard/update/{id}','ScholarController@update')->name('update');
 
+
 Route::get('/dashboard/send/email','SendController@sendEmail')->name('mail');
 Auth::routes();
 
