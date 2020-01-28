@@ -5,8 +5,21 @@
 @endsection('sidebar')
 
 @section('content')
+@if (session('alert'))
+    <div class="alert alert-success">
+        {{ session('alert') }}
+    </div>
+@endif
 
-
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
 <a href="student/create" class="btn btn-info" role="button">Add Student</a>
 
 <br><br>
@@ -18,26 +31,14 @@
 <a href="{{url('summarybatch','2020')}}" class="btn btn-info" role="button">Batch 2020</a>
 <br><br>
 
+<form method="Get" action="{{url('displayByDate')}}">
+<p>Date: <input type="text" id="datepicker" name="date"></p>
+<button type="submit">SUMMARY</button>
+</form>
+
+
       
-      <div class="dropdown">
-  <button class="dropbtn">Dropdown</button>
-  <div class="dropdown-content">
-    <a href="{{url('welcome','January')}}">January</a>
-    <a href="{{url('summaryMonth','February')}}">February</a>
-    <a href="{{url('summaryMonth','March')}}">March</a>
-    <a href="{{url('summaryMonth','April')}}">April</a>
-    <a href="{{url('summaryMonth','May')}}">May</a>
-    <a href="{{url('summaryMonth','June')}}">June</a>
-    <a href="{{url('summaryMonth','July')}}">July</a>
-    <a href="{{url('summaryMonth','August')}}">August</a>
-    <a href="{{url('summaryMonth','September')}}">September</a>
-    <a href="{{url('summaryMonth','October')}}">October</a>
-    <a href="{{url('summaryMonth','November')}}">November</a>
-    <a href="{{url('summaryMonth','December')}}">December</a>
-  </div>
-</div>
-         <button type="submit"  >Summary</button>
-         
+     
         </div>
         <br><br>
         
@@ -75,6 +76,22 @@
            </a></td>
         </tr>
         @endforeach
+        <div class="dropdown">
+  <button class="dropbtn">Dropdown</button>
+  <div class="dropdown-content">
+
+   @foreach($datas as $data)
+  
+            <a href="{{url('displayByMonth',$data)}}">{{$data}}</a>
+
+            
+            
+        @endforeach
+
+  </div>
+</div>
+       
+         
     </table>
 @endsection('content')
 @section('footer','Facebook   Twitter    Instagram     Youtube')   

@@ -18,4 +18,10 @@ class tblscholars extends Model
 
 
     ];
+    public function payment()
+    {
+        return $this->hasMany('App\tblpayments', 'payid', 'id');
+    }
+    
 }
+

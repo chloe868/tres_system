@@ -58,8 +58,16 @@
           <input type="email" name="email" class="form-control" placeholder="Enter Your Email " value=""/>
         </div>
         <div class="form-group">
-          <input type="number" min=0 name="batch" class="form-control" placeholder="Batch"  value=""/>
+          <select class="form-control" name="batch">
+          <option>---Choose Batch---</option>
+            <option>2020</option>
+            <option>2021</option>
+            <option>2022</option>
+          </select>
         </div>
+        <!-- <div class="form-group">
+          <input type="number" min=0 name="batch" class="form-control" placeholder="Batch"  value=""/>
+        </div> -->
         <div class="form-group">
           <input type="number" name="contact_number"  class="form-control" placeholder="Contact number " value=""/>
         </div>

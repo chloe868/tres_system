@@ -34,6 +34,9 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+
+     //Store the inputed data in the db
     public function store(Request $request)
     {
         $this->validate($request,[
@@ -43,9 +46,6 @@ class PaymentController extends Controller
             'batch' => 'required',
             'contact_number'=> 'required|digits:11',
             'email' => 'required','unique',
-            
-            
-
         ]);
         $student = new tblscholars([
             'first_name' => $request->get('first_name'),
@@ -53,32 +53,18 @@ class PaymentController extends Controller
             'last_name' => $request->get('last_name'),
             'batch' => $request->get('batch'),
             'contact_number' => $request->get('contact_number'),
-            'email' => $request->get('email'),
-            
-           
-            
+            'email' => $request->get('email'), 
         ]);
-
         $student->save();
-        $ID=$student->id;
-
-        $students = new tblpayments([
-            'month' => '0',
-            'payid' => $ID,
-            'year' => 0,
-            'amount' => 0,
-            'dateofpayment' => date('Y-m-d H:i:s'),
-           
-            
-           
-            
-        ]);
-        $students->save();
-        
-
-
-
-        
+        // $ID=$student->id;
+        // $students = new tblpayments([
+        //     'month' => '0',
+        //     'payid' => $ID,
+        //     'year' => 0,
+        //     'amount' => 0,
+        //     'dateofpayment' => date('Y-m-d H:i:s'),   
+        // ]);
+        // $students->save();     
         // return redirect()->route('welcome');
         return redirect('/welcome');
 
@@ -102,10 +88,8 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
 
-
+    public function edit($id){
         $student = tblscholars::find($id);
         if(!$student){
             return abort(404);
@@ -113,11 +97,6 @@ class PaymentController extends Controller
         // DB::table('students')->where('id',$id)->update();
         return view('student.edit',compact('student'));
         // return view('student.edit');
-
-            
-            
-    
-        
     }
 
     /**
@@ -127,6 +106,8 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //update 
     public function update(Request $request, $id)
     {
         
@@ -140,7 +121,6 @@ class PaymentController extends Controller
             
 
         ]); 
-        // dd($request->all());
         $student = tblscholars::find($id);
         $student->first_name = $request->get('first_name');
         $student->middle_name= $request->get('middle_name');
@@ -152,9 +132,6 @@ class PaymentController extends Controller
         
         $student->save();
         return redirect('/welcome')->with('success','Student Updated');
-        
-
-
     }
 
     /**
@@ -163,36 +140,39 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
-    public function welcome(Request $request){
-        // dd(Human::get());
-        // $students = tblscholars::all()->orderBy('id','DESC');
-        $students= tblscholars::orderBy('batch','desc')->get();
-        // $humans =Human::where('id',$request->id)->get();
-        return view('student.welcome',compact('students'));
-    }
-
-    // public function searchcontent(Request $request){
-    //     // dd(Human::get());
-    //     // $student = Student::find($id);
-    //     $student =tblscholars::where('last_name','like','%' .$request.'%')->orderBy('id')->paginate(5); 
-    //     return view('student.searchcontent',['student'=>$student]);
-    //     // $humans =Human::where('id',$request->id)->get();
-    //     // return view('student.searchcontent',compact('students'));
-    // }
 
 
-
-
+     //welcome Home page
     
+    public function welcome(Request $request){
+        $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
+        $payments = Tblpayments::all();
+
+        $month = "";
+        $datas=[];
+        foreach($payments as $payment){
+            if(($payment->month)=="0"){
+            }
+           elseif(($payment->month)==$month){
+                $month=$payment->month;
+            }else{
+                $month=$payment->month;
+                array_push($datas,$payment->month);
+            }   
+             }
+           return view('student.welcome',compact('students','datas'));
+      
+    }
+    //Delete function
+
     public function delete($id){
         DB::table('students')->where('id',$id)->delete();
         return redirect('/welcome');
 
     }
+
+
+
 
     
 
