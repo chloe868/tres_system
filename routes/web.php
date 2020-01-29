@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('student.welcome');
+});
 // Route::get('/student', function () {
 //     return view('student.welcome','StudentsController@welcome');
 // });
@@ -35,6 +35,10 @@ Route::post('stores/{id}', 'TablePaymentController@stores')->name('stores');
 // Route::resource('student','TablePaymentController');
 Route::get('summary/{id}','TablePaymentController@summary');
 Route::get('pay/{id}','TablePaymentController@pay')->name('pay');
+
+
+
+Route::get('/welcome/send/email','SendController@sendEmail')->name('mail');
 
 
 // Route::get('/live_search', 'LiveSearch@index');

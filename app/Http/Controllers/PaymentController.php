@@ -85,13 +85,13 @@ class PaymentController extends Controller
     {
 
 
-        $student = tblscholars::find($id);
-        if(!$student){
+        $scholars = tblscholars::find($id);
+        if(!$scholars){
             return abort(404);
         }
-        // DB::table('students')->where('id',$id)->update();
-        return view('student.edit',compact('student'));
-        // return view('student.edit');
+        // DB::table('scholarss')->where('id',$id)->update();
+        return view('scholars.edit',compact('scholars'));
+        // return view('scholars.edit');
 
             
             
@@ -148,10 +148,10 @@ class PaymentController extends Controller
     }
     public function welcome(Request $request){
         // dd(Human::get());
-        // $students = tblscholars::all()->orderBy('id','DESC');
-        $students= tblscholars::orderBy('batch','desc')->get();
+        // $scholars = tblscholars::all()->orderBy('id','DESC');
+        $scholars= tblscholars::orderBy('batch','desc')->get();
         // $humans =Human::where('id',$request->id)->get();
-        return view('student.welcome',compact('students'));
+        return view('student.welcome',compact('scholars'));
     }
 
     public function searchcontent(Request $request){
