@@ -1,6 +1,7 @@
 <head>
     <title>App name - @yield('title')</title>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -10,27 +11,18 @@
 </head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">Tres_System</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{{url('http://localhost:8000/')}}">Home</a>
+          <a class="nav-link" href="{{route('login')}}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Payments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('students')}}">Students</a>
-        </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <li class="nav-item">
-          <a class="nav-link" href="{{route('logout')}}">Logout</a>
+          <a class="nav-link" href="{{route('register')}}">Register</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-@yield('content')
+
+
 

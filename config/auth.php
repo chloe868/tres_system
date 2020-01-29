@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'admins',
     ],
 
     /*
@@ -39,12 +39,30 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'hash' => false,
         ],
 
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
+            'hash' => false,
         ],
+
+        'guest' => [
+            'driver' => 'token',
+            'provider' => 'guests',
+        ],
+
+        'user' => [
+            'driver' => 'token',
+            'provider' => 'users',
+
+        ],
+
+        'admin' => [
+            'driver' => 'token',
+            'provider' => 'admins',
+        ]
     ],
 
     /*
@@ -67,13 +85,14 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
+            //model sa database nga i-save
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'table' => App\Admin::class,
+        ],
     ],
 
     /*
@@ -92,8 +111,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'admins' => [
+            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
         ],

@@ -8,9 +8,11 @@ use App\Models\Human;
 class UserController extends Controller
 {
     public function welcome(Request $request){
-        // dd(Human::get());
         $humans = Human::all();
-        // $humans =Human::where('id',$request->id)->get();
         return view('test.welcome',compact('humans'));
     }
-}
+
+    public function dashboard() {
+        return view('dashboard');
+    }
+ }

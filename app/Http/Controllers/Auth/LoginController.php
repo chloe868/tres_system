@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserLoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\admin;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,4 +39,26 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function showLoginForm() {
+        return view('auth.login');
+    }
+    //attempt to Login
+    public function login(UserLoginRequest $request) 
+    {
+        if(Auth::guard('user')->attempt(['username' => $request->username, 'password' => $request->password])) {
+            return redirect()->route('dashboard');
+    }
+        if(! User::where('username', $request->username)->where('password', bcrypt($request->password))->first() ) {
+            return redirect()->back()
+                ->withInput($request->only('username'))
+                ->withErrors(['status' => 'Incorrect username or password.']);
+        }
+    }
+
+    public function logout() {
+        Auth::guard('user')->logout();
+        return redirect()->route('login');
+    }
+
+
 }

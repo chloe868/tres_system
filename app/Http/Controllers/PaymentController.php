@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\tblscholars;
+use App\admin;
 use Illuminate\Support\Facades\DB;
 class PaymentController extends Controller
 {
@@ -64,6 +65,28 @@ class PaymentController extends Controller
         // return redirect()->routes('student.create')->with('success','Data Added');
     }
 
+    public function storeAdmin(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:admins',
+            'password' => 'required|string|min:8|confirmed',
+            ]);
+            
+            $admin  = [];
+            $data = $request->all();
+            $admin['name'] = $data['name'];
+            $admin['username'] = $data['username'];
+            $admin['password'] = bcrypt($data['password']);
+            
+            $save = admin::create($admin);
+            $save->save();
+            
+            return view('firstLand');
+             
+    }
+
+    
     /**
      * Display the specified resource.
      *
@@ -132,8 +155,6 @@ class PaymentController extends Controller
         $student->save();
         return redirect('/welcome')->with('success','Student Updated');
         
-
-
     }
 
     /**
@@ -163,19 +184,19 @@ class PaymentController extends Controller
         // return view('student.searchcontent',compact('students'));
     }
 
-
-
-
-    
     public function delete($id){
         DB::table('students')->where('id',$id)->delete();
         return redirect('/welcome');
 
     }
 
-    
+    public function login() {
+        return view('login');
+    }
 
 
+    public function register() {
+        return view('register');
+    }
 
-    
 }
