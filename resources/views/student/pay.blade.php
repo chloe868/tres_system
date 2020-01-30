@@ -1,53 +1,27 @@
-@extends ('master')
+<link rel="stylesheet" href="{{url('css/form.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{url('css/addform.css')}}">
+
+
+
+@extends('student.layout')
+
 @section ('content')
 
-<style>
-  .table{
-    width:50%;
-    margin-left:27%;
-    background-color:grey;
-    margin-top:7%;
-    border-radius:10%
-  }
-  #rows{
-    margin-left:8%
-  }
-  .tit{
-    text-align:center
-  }
-  .btn{
-    margin-bottom:10%
-  }
-</style>
 
 
-@if(count($errors)>0)
-<div>
-  <ul>
-    @foreach($errors->all() as $error)
-    <li>{{$error}}</li>
-    @endforeach
-  </ul>
-</div>
-@endif
-@if(\Session::has('success'))
-  <div class="alert alert-success">
-    <p>{{Session::get('success')}}</p>
-  </div>
+<body class="bg">
+<div class="container">
+    <div class="d-flex justify-content-center h-100">
+            <div class="card">
+                <div class="card-header"><b>Pay a counterpart</b></div>
 
-@endif
-
-<div class="table">
-<div class="row">
-  <div class="col-md-10" id="rows">
-    <br/>
-      <h1 class="tit">Add Data</h1>
-      <br/>
+                <div class="card-body">
       <form method="post" action="{{route('stores',$student->id)}}">  
         {{csrf_field()}}
-        
-  
-        <div class="form-group">
+        <br><br>
+        <div class="input-group form-group">
+        <i class="fa fa-calendar icon"></i>
           <select class="form-control" name="month">
           <option>---Choose Month---</option>
             <option>January</option>
@@ -64,8 +38,12 @@
             <option>December</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="input-group form-group">
+      
+        <i class="fa fa-calendar icon"></i>
+
           <select class="form-control" name="year">
+
           <option>---Choose Year---</option>
             <option>2018</option>
             <option>2019</option>
@@ -82,10 +60,15 @@
             <option>2030</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="input-group form-group">
+       
+        <i class="fa fa-money icon"></i>
+
           <input type="number" name="amount" class="form-control" placeholder="Input Amount" value=""/>
         </div>
-        <div class="form-group">
+        <div class="input-group form-group">
+        <i class="fa fa-calendar icon"></i>
+      
           <input type="date" name="dateofpayment" class="form-control" placeholder="Date  " value=""/>
         </div>
        

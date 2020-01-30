@@ -146,21 +146,9 @@ class PaymentController extends Controller
     
     public function welcome(Request $request){
         $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
-        $payments = Tblpayments::all();
-
-        $month = "";
-        $datas=[];
-        foreach($payments as $payment){
-            if(($payment->month)=="0"){
-            }
-           elseif(($payment->month)==$month){
-                $month=$payment->month;
-            }else{
-                $month=$payment->month;
-                array_push($datas,$payment->month);
-            }   
-             }
-           return view('student.welcome',compact('students','datas'));
+            return view('student.welcome',compact('students'));
+      
+        
       
     }
     //Delete function
@@ -170,7 +158,23 @@ class PaymentController extends Controller
         return redirect('/welcome');
 
     }
+public function summaries(){
+    $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
+    $payments = Tblpayments::all();
+    $batch="";
+    $batchdatas=[];
+    foreach($students as $stud){
+        if(($stud->batch)!=$batch){
+            $batch=$stud->batch;
+            
+        }else{
+            continue;
+        }  
+        array_push($batchdatas,$stud->batch); 
+    }
+    return view('student.summaries',compact('students','batchdatas'));
 
+}
 
 
 

@@ -1,65 +1,127 @@
-<link rel="stylesheet" href="{{url('css/form.css')}}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-
 @extends('student.layout')
-@section('title','Training')
-@section('sidebar')
-    Home(sidebar)
-@endsection('sidebar')
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
 
-@section('content')
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 20%;
+  margin-left:5%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  
+}
 
-@if (session('alert'))
-    <div class="alert alert-success">
-        {{ session('alert') }}
-    </div>
-@endif
-<a href="{{url('student/create')}}" class="btn btn-info" role="button">Add Student</a>
+#myTable {
+  border-collapse: collapse;
+  width: 90%;
+  margin-left:5%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}#myTable th{
+    background-color:#ff9933
+}
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+}
+.title{
+    margin-bottom:5%;
+}
 
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
 
-<br><br>
+#myTable tr.header, #myTable tr:hover {
+  background-color:#ffb061;
+}
+</style>
+</head>
+<body>
+<div style="margin-top:4%">
+<div class="title">
+  <br><br>
+<center><h1  >Passarelles Numeriques Philippines Scholars</h1></center>
+</div>
+</div>
 
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
-
-<form >  
-        {{csrf_field()}}
-
-
-</form>
-    <table border=1 id="customers">
-        <tr>
-            <th>Firstname</th>
-            <th>Middlename</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Contact Number</th>
-            <th>Batch</th>
-           
-            <th>Action</th>
-            
-        </tr>
-        @foreach($students as $student)
-        <tr>
-
-            <td>{{$student['first_name']}}</td>
-            <td>{{$student['middle_name']}}</td>
-            <td>{{$student['last_name']}}</td>
-            <td>{{$student['email']}}</td>
-            <td>{{$student['contact_number']}}</td>
-            <td>
-           {{$student['batch']}}
-            </td>
-            
-            <td><a href="{{url('summary',$student->id)}}"><button>View Summary</button>
+<table id="myTable">
+  
+    <tr class="header">
+        <th>Name of the student</th>     
+        <th>Batch</th>
+        <th>Email</th>
+      
+        <th>Action</th>
+    </tr>
+   
+  <tbody>
+  @foreach($students as $scholars)
+            <tr>
+                <td>{{$scholars->first_name}} {{$scholars->middle_name}} {{$scholars->last_name}}</td>
+                
+               
+                <td>{{$scholars->batch}}</td>
+               
+                <td>{{$scholars->email}}</td>
+               
+                
+ 
+              
+                <td><a href="{{url('summary',$scholars->id)}}"><button>View Summary</button>
            </a></td>
-        </tr>
+            </tr>
 
-        @endforeach
-<a href="{{url('summaryYear','2020')}}" class="btn btn-info" role="button">Total Amount for Batch {{$student->batch}}</a>
-<a href="/welcome" class="btn btn-info" role="button">Back</a>
+            @endforeach  
 
-    </table>
-@endsection('content')
-@section('footer','Facebook   Twitter    Instagram     Youtube')   
 
+          
+           
+          
+  
+  </tbody>
+  <div>
+<h2 style="margin-top:-3%;float:right;margin-right:10%">Total: {{$student}} pesos</h2>
+<h2 style="margin-top:-3%;float:right;margin-right:20%">Batch {{$scholars->batch}}</h2>
+</div>
+</table>
+
+
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>

@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\User;
+use App\Tblscholars;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class CsvImport implements ToModel
@@ -18,7 +19,7 @@ class CsvImport implements ToModel
     {
 
         
-        return new User([
+        return new Tblscholars([
 
             'first_name'=>$row[0],
             'middle_name'=>$row[1],

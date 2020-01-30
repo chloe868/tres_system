@@ -3,10 +3,7 @@
 
 
 @extends('student.layout')
-@section('title','Training')
-@section('sidebar')
-    Home(sidebar)
-@endsection('sidebar')
+
 
 @section('content')
 

@@ -1,63 +1,121 @@
-
-
-
-
 @extends('student.layout')
-@section('title','Training')
-@section('sidebar')
-    Home(sidebar)
-@endsection('sidebar')
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
 
-@section('content')
+h1{
+    text-decoration:underline
+}
+.title{
+    margin-top:-25%;
+}
 
-@if (session('alert'))
-    <div class="alert alert-success">
-        {{ session('alert') }}
-    </div>
-@endif
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="{{url('css/form.css')}}">
-<a href="student/create" id="add">Add Data</a>
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 20%;
+  margin-left:5%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  margin-top:15%
+
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 90%;
+  margin-left:5%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
 
 
-<br><br>
+</style>
+</head>
+<body>
+<div style="margin-top:4%">
 
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
-        
-    <table border=1 id="customers">
-        <tr>
-            <th>Month</th>
-            <th>Year</th>
-            <th>Amount</th>
-            <th>Date</th>
-        
-            
-        </tr>
-        @foreach($students as $student)
-        <tr>
-
-            <td>{{$student->month}}</td>
-            <td>{{$student->year}}</td>
-            <td>{{$student->amount}}</td>
-            <td>{{$student->dateofpayment}}</td>
-        </tr>
-        @endforeach
-        <h1>{{$student->first_name.' '.$student->middle_name.' '.$student->last_name}}</h1>
-        
-
-       
-        <a href="/welcome"><button class="btn btn-info">BAck</button></a> &nbsp&nbsp
-        <a href="{{url('pay',$student->payid)}}"><button class="btn btn-info">Pay</button></a>
-        <a href="{{url('total',$student->payid)}}"><button class="btn btn-info">total</button></a>
-
-       
-     
-    </table>
-
+<table id="myTable">
+   <th>
+    <tr class="header">
+        <th>Month</th>     
+        <th>Year</th>
+        <th>Amount</th>
+        <th>Date of Payment</th>
+    </tr>
+   </th>
     
+  <tbody>
+  @foreach($students as $scholars)
+            <tr>
+                <td>{{$scholars->month}} {{$scholars->middle_name}} {{$scholars->last_name}}</td>
+                
+               
+                <td>{{$scholars->year}}</td>
+               
+                <td>{{$scholars->amount}}</td>
+               <td> {{date('F j, Y', strtotime($scholars->dateofpayment))}}</td>
 
-     
-   
-@endsection('content')
-@section('footer','Facebook   Twitter    Instagram     Youtube')   
+                   
+            </tr>
+            @endforeach
+  
+  </tbody>
 
+        </table>
+        <div class="title"> 
+        <center>
+<h1> {{$scholars->first_name}} {{$scholars->middle_name}} {{$scholars->last_name}}</h1>
+   <h2>Total is : {{$TOTAL}} pesos</h2>
+      
+        <a href="{{url('pay',$scholars->payid)}}"><button class="btn btn-primary" id="paybtn">PAY COUNTERPART</button></a>
+        </center>
+        </div>
+
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>

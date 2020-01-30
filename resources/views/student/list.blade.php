@@ -1,4 +1,3 @@
-@extends('student.layout')
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,38 +8,26 @@
 }
 
 #myInput {
-
+  background-image: url('/css/searchicon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;
-  width: 20%;
-  margin-left:5%;
+  width: 100%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
-  
 }
 
 #myTable {
   border-collapse: collapse;
-  width: 90%;
-  margin-left:5%;
+  width: 100%;
   border: 1px solid #ddd;
   font-size: 18px;
- 
 }
 
-#myTable th{
-  background-color:#ff9933;
-}
 #myTable th, #myTable td {
   text-align: left;
   padding: 12px;
-  
-}
-}
-.title{
-    margin-bottom:5%;
 }
 
 #myTable tr {
@@ -48,29 +35,25 @@
 }
 
 #myTable tr.header, #myTable tr:hover {
-  background-color: #ffb061;
+  background-color: #f1f1f1;
 }
 </style>
 </head>
 <body>
-<div style="margin-top:4%">
-<div class="title">
-  <br><br>
-<center><h1  >Passarelles Numeriques Philippines Scholars</h1></center>
-</div>
-</div>
+
+<h2>My Customers</h2>
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
-<table id="myTable" >
-  
+<table id="myTable">
+   <th>
     <tr class="header">
         <th>Name of the student</th>     
         <th>Batch</th>
         <th>Email</th>
         <th>Action</th>
     </tr>
-
+   </th>
     
   <tbody>
   @foreach($students as $scholars)
@@ -90,7 +73,6 @@
   
   </tbody>
 </table>
-
 
 <script>
 function myFunction() {

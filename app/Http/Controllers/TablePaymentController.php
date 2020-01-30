@@ -24,36 +24,30 @@ class TablePaymentController extends Controller
         ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid","t1.last_name","t1.first_name","t1.middle_name")
         ->get()
         ->toArray();
+        $TOTAL = DB::table('tblpayments')
+        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+        ->where('tblscholars.id', '=', $id)
+        ->sum('tblpayments.amount');
+        if($TOTAL == 1200){
+            
+        }
+         
 
         
         if($students!=[]){
-            return view('student.summary',compact('students'));
+            return view('student.summary',compact('students','TOTAL'));
+           
         }else{
-            return redirect()->back()->with('alert', 'Wala paygibayad');
+            $student = tblscholars::find($id);
+            return view('student.pay',compact('student'));
         }
+
+
             
           
             
     }
 
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function stores(Request $request,$id)
     {
         $this->validate($request,[
@@ -70,72 +64,32 @@ class TablePaymentController extends Controller
             'dateofpayment' => $request->get('dateofpayment'), 
         ]);
         $student->save();
-        // return redirect()->route('welcome');
-        return redirect('/welcome');
+        return redirect('/list');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function pay($id){
         $student = tblscholars::find($id);
         return view('student.pay',compact('student'));
     }
     public function summarybatch($batch){
-        // $students= tblscholars::orderBy('batch','desc')->get();
+        
         $students =tblscholars::where('batch',$batch)->get();
         $student = DB::table('tblpayments')
         ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
         ->where('tblscholars.batch', '=', $batch)
         ->sum('tblpayments.amount');
+        
+
+
+
         // return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
-        return view('student.summarybatch',compact('students'));
+        return view('student.summaryBatch',compact('students','student'));
     }
     public function total($id)
     {
           // $students = tblscholars::all();
-          $students = DB::table('tblpayments')
-          ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
-          ->where('tblscholars.id', '=', $id)
-          ->sum('tblpayments.amount');
-          return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');             
+                    
     }
     function summaryYear($batch ){
         // $myMonth = $request->get('year');
@@ -175,6 +129,30 @@ class TablePaymentController extends Controller
         $students =tblpayments::where('dateofpayment',$dates)->get();
         return view('student.summaryDate',compact('students'));
     }
+
+
+    public function mgaSummary(Request $request){
+        $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
+        $payments = Tblpayments::all();
+
+        $month = "";
+        $datas=[];
+        foreach($payments as $payment){
+           
+          if(($payment->month)==$month){
+                $month=$payment->month;
+            }else{
+                $month=$payment->month;
+                array_push($datas,$payment->month);
+            }   
+             }
+        //    return view('student.welcome',compact('students','datas'));
+        dd($datas);
+      
+    }
+        public function summaries(){
         
+         return view('student.summaries');
+        }
       
 }
