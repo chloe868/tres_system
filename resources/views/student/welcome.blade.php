@@ -54,7 +54,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                         MESSAGE
                     </button>
-                    
+
                     <form action="">
 
                     </form>
@@ -64,7 +64,8 @@
         </tbody>
 
     </table>
-   
+    <center><a href="{{route ('student.create')}}" class="btn btn-success" type="button" value="ADD">ADD LIST</a></center>
+
     <!-- The Modal -->
     <div class="modal" id="myModal">
         <div class="modal-dialog">
@@ -72,7 +73,9 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <center><h4 class="modal-title">Send Message</h4></center>
+                    <center>
+                        <h4 class="modal-title">Send Message</h4>
+                    </center>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -105,26 +108,26 @@
                             <label for="lname">Message</label>
                             <textarea class="form-control" name="message" rows="3"></textarea>
                         </div>
+                        <div class="modal-footer">
+
+                            <input class="btn btn-primary" type="submit"
+                                value="SEND">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
                     </form>
                 </div>
 
                 <!-- Modal footer -->
-                <div class="modal-footer">
-
-                    <a href="{{route('mail', $scholar->id)}}" class="btn btn-primary" type="button"
-                        value="SEND">SEND</a>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
             </div>
         </div>
     </div>
 
 </body>
 <script>
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>

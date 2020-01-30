@@ -13,7 +13,7 @@ class ScholarTableSeeder extends Seeder
     {
         DB::table('tblscholars')->insert(
             array(
-                array('first_name' => 'Jorgielyn','middle_name' => 'Librando', 'last_name' => 'Iran',  'email' => 'irangabriellef14@gmail.com', 'phone_number' => '09460306015' ,'batch' => '2020'),
+                array('first_name' => 'Jorgielyn','middle_name' => 'Librando', 'last_name' => 'Iran',  'email' => 'irangabriellef14@gmail.com', 'contact_number' => '09460306015' ,'batch' => '2020'),
             )
         );
     }

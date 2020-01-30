@@ -7,16 +7,14 @@ use App\Mail\TestEmail;
 
 class SendController extends Controller
 {
-    public function sendEmail()
+    public function sendEmail(Request $request)
     {
-        $data =['message' => 'this is a test'];
+        $data = $request->all();
+        $firstname = ['first_name' => $data['first_name']];
+        $message =['message' => $data['message']];
 
-        \Mail ::to('mellynegrace.nadela@student.passerellesnumeriques.org')->send(new TestEmail($data));
-        \Mail ::to('jorgielyn.iran@student.passerellesnumeriques.org')->send(new TestEmail($data));
-        \Mail ::to('cherrymae.herrera@student.passerellesnumeriques.org')->send(new TestEmail($data));
-        \Mail ::to('herreracherrymae@gmail.com')->send(new TestEmail($data));
-        \Mail ::to('irangabriellef14@gmail.com')->send(new TestEmail($data));
-
+        \Mail ::to($data['email'])->send(new TestEmail($data));
+    
         return redirect()->back()->with('success','Email sent successfully!');
     }
 }

@@ -19,7 +19,7 @@ class CreateScholarTable extends Migration
             $table->string('middle_name');
             $table->string('last_name');
             $table->string('email');
-            $table->bigInteger('phone_number');
+            $table->bigInteger('contact_number');
             $table->integer('batch');
             $table->timestamps();
         });

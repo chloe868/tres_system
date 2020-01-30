@@ -1,41 +1,7 @@
 @extends ('master')
 @section ('content')
 
-<style>
-  .table{
-    width:50%;
-    margin-left:27%;
-    background-color:grey;
-    margin-top:7%;
-    border-radius:10%
-  }
-  #rows{
-    margin-left:8%
-  }
-  .tit{
-    text-align:center
-  }
-  .btn{
-    margin-bottom:10%
-  }
-</style>
-
-
-@if(count($errors)>0)
-<div>
-  <ul>
-    @foreach($errors->all() as $error)
-    <li>{{$error}}</li>
-    @endforeach
-  </ul>
-</div>
-@endif
-@if(\Session::has('success'))
-  <div class="alert alert-success">
-    <p>{{Session::get('success')}}</p>
-  </div>
-
-@endif
+<link rel="stylesheet" href="{{url('css/form.css')}}">
 
 <div class="table">
 <div class="row">
@@ -47,21 +13,51 @@
         {{csrf_field()}}
         <div class="form-group">
           <input type="text" name="first_name" class="form-control" placeholder="Enter Your Firstname " value=""/>
+          <span class="error">
+                    @if($errors->has('first_name'))
+                    {{ $errors->first('first_name') }}
+                    @endif
+                </span>
         </div>
         <div class="form-group">
           <input type="text" name="middle_name" class="form-control" placeholder="Enter Your Middlename " value=""/>
+          <span class="error">
+                    @if($errors->has('middle_name'))
+                    {{ $errors->first('middle_name') }}
+                    @endif
+                </span>
         </div>
         <div class="form-group">
           <input type="text" name="last_name" class="form-control" placeholder="Enter Your Lastname " value=""/>
+          <span class="error">
+                    @if($errors->has('last_name'))
+                    {{ $errors->first('last_name') }}
+                    @endif
+                </span>
         </div>
         <div class="form-group">
           <input type="email" name="email" class="form-control" placeholder="Enter Your Email " value=""/>
+          <span class="error">
+                    @if($errors->has('email'))
+                    {{ $errors->first('email') }}
+                    @endif
+                </span>
         </div>
         <div class="form-group">
           <input type="number" min=0 name="batch" class="form-control" placeholder="Batch"  value=""/>
+          <span class="error">
+                    @if($errors->has('batch'))
+                    {{ $errors->first('batch') }}
+                    @endif
+                </span>
         </div>
         <div class="form-group">
           <input type="number" name="contact_number"  class="form-control" placeholder="Contact number " value=""/>
+          <span class="error">
+                    @if($errors->has('contact_number'))
+                    {{ $errors->first('contact_number') }}
+                    @endif
+                </span>
         </div>
        
         <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block">Submit</button> 

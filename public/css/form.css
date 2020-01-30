@@ -1,46 +1,125 @@
-h1{
-    
-    font-size:40px;
+h1 {
+
+    font-size: 40px;
     text-align: center
 }
-html {
-    background-image: url("/images/bg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+
+span {
+    color: red;
+    font-size: 12px;
 }
-#customers{
+
+
+#customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-  width: 100%
-
-    
+    width: 100%
 }
-#customers td, #customers th {
+
+#customers td,
+#customers th {
     border: 1px solid #ddd;
     padding: 1px;
-    
-  }
-  
-  #customers tr:nth-child(even){background-color: #f2f2f2;}
-  
-  #customers tr:hover {background-color: #ddd;}
-  
-  #customers th {
-   
+
+}
+
+#customers tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+
     text-align: center;
     background-color: #4CAF50;
     color: white;
     font-size: 30px;
+}
+
+#customers td {
+    text-align: center;
+    font-size: 25px
+}
+
+.a {
+    margin-left: 35%;
+    font-size: 30px;
+}
+
+#add {
+    font-size: 30px;
+    margin-left: 45%
+}
+
+/* body {
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+html,
+body {
+    background-image: url('https://st4.depositphotos.com/1400069/25524/i/450/depositphotos_255240340-stock-photo-blurred-blue-background-gradient-fresh.jpg');
+    color: #00ace6;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    height: 100vh;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+/* .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+} */
+
+.table{
+    width:50%;
+    margin-left:27%;
+    background-color:grey;
+    margin-top:7%;
+    border-radius:10%
   }
-  #customers td{
-      text-align: center;
-      font-size: 25px
+  #rows{
+    margin-left:8%
   }
-  .a{
-      margin-left: 35%;
-      font-size: 30px;
+  .tit{
+    text-align:center
   }
-  #add{
-      font-size: 30px;
-      margin-left: 45%
+  .btn{
+    margin-bottom:10%
   }

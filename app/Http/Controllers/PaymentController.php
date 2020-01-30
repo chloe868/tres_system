@@ -147,10 +147,7 @@ class PaymentController extends Controller
         //
     }
     public function welcome(Request $request){
-        // dd(Human::get());
-        // $scholars = tblscholars::all()->orderBy('id','DESC');
         $scholars= tblscholars::orderBy('batch','desc')->get();
-        // $humans =Human::where('id',$request->id)->get();
         return view('student.welcome',compact('scholars'));
     }
 
