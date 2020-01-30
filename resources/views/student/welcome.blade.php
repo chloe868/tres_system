@@ -35,7 +35,7 @@
                 <th>Middle Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
-                <th>Phone Number</th>
+                <th>Contact Number</th>
                 <th>Batch</th>
                 <th>Action</th>
 
@@ -48,7 +48,7 @@
                 <td>{{$scholar->middle_name}}</td>
                 <td>{{$scholar->last_name}}</td>
                 <td>{{$scholar->email}}</td>
-                <td>{{$scholar->phone_number}}</td>
+                <td>{{$scholar->contact_number}}</td>
                 <td>{{$scholar->batch}}</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
