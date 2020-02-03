@@ -1,5 +1,5 @@
 <head>
-    <title>App name - @yield('title')</title>
+    <title>Tres System - PN</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -7,61 +7,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{url('css/form.css')}}">
+    <link rel="stylesheet" href="{{url('css/nav.css')}}">
+
 </head>
 
 <style>
 
-.dropdown-submenu {
-    position: relative;
-}
-
-.dropdown-submenu>.dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -6px;
-    margin-left: -1px;
-    -webkit-border-radius: 0 6px 6px 6px;
-    -moz-border-radius: 0 6px 6px;
-    border-radius: 0 6px 6px 6px;
-}
-
-.dropdown-submenu:hover>.dropdown-menu {
-    display: block;
-}
-
-.dropdown-submenu>a:after {
-    display: block;
-    content: " ";
-    float: left;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 2px 0 2px 2px;
-    border-left-color: #ccc;
-    margin-top: 5px;
-    margin-right: -10px;
-}
-
-.dropdown-submenu:hover>a:after {
-    border-left-color: #fff;
-}
-
-.dropdown-submenu.pull-left {
-    float: none;
-}
-
-.dropdown-submenu.pull-left>.dropdown-menu {
-    left: -100%;
-    margin-left: 5px;
-    -webkit-border-radius: 6px 0 6px 6px;
-    -moz-border-radius: 6px 0 6px 6px;
-    border-radius: 6px 0 6px 6px;
-}
-.date{
-  float:left;
-  width:90%;
-}</style>
+    </style>
 <div  >
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top ">
   <div class="container" >
@@ -72,7 +24,7 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{{url('http://localhost:8000')}}">Home</a>
+          <a class="nav-link" href="{{url('/home')}}">Home</a>
         </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <li class="nav-item active">
           <a class="nav-link" href="{{url('/list')}}" >Students</a>
@@ -88,9 +40,7 @@
              Summary
             </button>
             <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                <!-- <li class="dropdown-item"><a href="#">Some action</a></li>
-                <li class="dropdown-item"><a href="#">Some other action</a></li> -->
-                <!-- <li class="dropdown-divider"></li> -->
+              
                 <li class="dropdown-submenu">
                   <a  class="dropdown-item" tabindex="-1" href="#">Batch</a>
                   <ul class="dropdown-menu">
@@ -128,9 +78,23 @@
                 </li>
               </ul>
           </div>
-        <li class="nav-item">
-          <a class="nav-link active" >Logout</a>
-        </li>
+          <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Admin <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
         
       </ul>
     </div>

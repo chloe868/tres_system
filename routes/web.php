@@ -10,12 +10,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//cherry
+Route::view('/', 'main');
+Auth::routes();
 
-Route::get('/', function () {
-    return view('homepage');
-});
-// Route::get('/student', function () {
-//     return view('student.welcome','StudentsController@welcome');
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+ 
+Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+ 
+Route::view('/home', 'student.home')->middleware('auth');
+// Route::get('/homes', 'PaymentController@welcome')->name('homes');
+Route::view('/admin', 'admin');
+
+//mellyne
+// Route::get('/', function () {
+//     return view('homepage');
 // });
 
 
@@ -32,9 +44,12 @@ Route::get('summaries','PaymentController@summaries');
 
 
 Route::post('stores/{id}', 'TablePaymentController@stores')->name('stores');
+
+
 // Route::post('summary/{id}', 'TablePaymentController@summary')->name('summary');
 // Route::resource('student','TablePaymentController');
 Route::get('summary/{id}','TablePaymentController@summary');
+Route::view('send/message','student.message');
 
 Route::get('pay/{id}','TablePaymentController@pay')->name('pay');
 Route::get('summarybatch/{batch}','TablePaymentController@summarybatch')->name('summarybatch');
@@ -53,3 +68,6 @@ Route::get('displayByDate','TablePaymentController@displayByDate')->name('displa
 Route::get('csv_file','CsvFile@index');
 Route::get('csv_file/export','CsvFile@csv_export')->name('export');
 Route::post('list','CsvFile@csv_import')->name('import');
+
+
+Route:: post('/pay/send/email', 'SendController@sendEmail')->name('mail');

@@ -164,7 +164,7 @@ public function summaries(){
         }  
         array_push($batchdatas,$stud->batch); 
     }
-    return view('student.summaries',compact('students','batchdatas'));
+    return view('summaries.summaries',compact('students','batchdatas'));
 
 }
 

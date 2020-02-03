@@ -16,7 +16,7 @@
 </div>
 
 @endif
-<div style="margin-top:4%">
+<div style="margin-top:1%">
 
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
@@ -49,18 +49,20 @@
   
   </tbody>
 
-        </table>
-        <footer >
+      
+       
+    <div>
+
+<h2 style="margin-top:-3%;float:right;margin-right:5%">Total: {{$TOTAL}} pesos</h2>
+<center>
+<h2 style="margin-top:-10%;float:right;margin-right:15%">{{$scholars->first_name}} {{$scholars->middle_name}} {{$scholars->last_name}}</h2>
+<a href="{{url('pay',$scholars->payid)}}"><button style="margin-top:-6%;float:right;margin-right:20%" class="btn btn-primary" id="paybtn">PAY COUNTERPART</button></a>
+</center></div>
+</table>
+<footer >
         @include('student.footer')
     </footer>
-        <div class="title"> 
-        <center>
-<h1> {{$scholars->first_name}} {{$scholars->middle_name}} {{$scholars->last_name}}</h1>
-   <h2>Total is : {{$TOTAL}} pesos</h2>
-      
-        <a href="{{url('pay',$scholars->payid)}}"><button class="btn btn-primary" id="paybtn">PAY COUNTERPART</button></a>
-        </center>
-        </div>
+       
      
 
 <script>

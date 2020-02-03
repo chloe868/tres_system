@@ -16,7 +16,7 @@ class CsvFile extends Controller
     function index()
     {
         $data = User::latest()->paginate(10);
-        return view('student.csv_file',compact('data'))->with('i',(request()->input('page',1)-1)*10);
+        return view('csvfiles.csv_file',compact('data'))->with('i',(request()->input('page',1)-1)*10);
     }
     public function csv_export(){
         return Excel::download(new CsvExport, 'sample.csv');

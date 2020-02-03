@@ -11,7 +11,15 @@
 <body>
 
 
+@if(Session::has('success'))
 
+<div class="alert alert-success">
+
+<strong>Success: </strong>{{ Session::get('success') }}
+
+</div>
+
+@endif
 
 <div style="margin-top:4%">
 <div class="title">
@@ -25,28 +33,23 @@
 <table id="myTable">
   
     <tr class="header">
-        <th>Name of the student</th>     
-        <th>Batch</th>
-        <th>Email</th>
+        <th>Month</th>     
+        <th>Year</th>
+        <th>Amount</th>
       
-        <th>Action</th>
+        <th>Date of Payment</th>
     </tr>
    
   <tbody>
   @foreach($students as $scholars)
             <tr>
-                <td>{{$scholars->first_name}} {{$scholars->middle_name}} {{$scholars->last_name}}</td>
+                <td>{{$scholars->month}}</td>
                 
                
-                <td>{{$scholars->batch}}</td>
-               
-                <td>{{$scholars->email}}</td>
-               
-                
- 
-              
-                <td><a href="{{url('summary',$scholars->id)}}"><button>View Summary</button>
-           </a></td>
+                <td>{{$scholars->year}}</td>
+      
+                <td>{{$scholars->amount}}</td>
+                <td>{{date('F j, Y', strtotime($scholars->dateofpayment))}}</td>
             </tr>
 
             @endforeach  
@@ -58,8 +61,8 @@
   
   </tbody>
   <div>
-<h2 style="margin-top:-3%;float:right;margin-right:10%">Total: {{$student}} pesos</h2>
-<h2 style="margin-top:-3%;float:right;margin-right:20%">Batch {{$scholars->batch}}</h2>
+<h2 style="margin-top:-3%;float:right;margin-right:5%">Total: {{$student}} pesos</h2>
+<h2 style="margin-top:-3%;float:right;margin-right:15%">Month of  {{$scholars->month}}</h2>
 </div>
 </table>
 <footer >

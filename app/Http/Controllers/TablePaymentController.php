@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Session;
 use App\tblpayments;
@@ -29,14 +30,14 @@ class TablePaymentController extends Controller
         ->where('tblscholars.id', '=', $id)
         ->sum('tblpayments.amount');
        
-        if($TOTAL == 12000){
+        if($TOTAL >= 12000){
             Session::flash('success','Humana Kag Bayad');   
             return redirect('/list');
             
         }
          else{
             if($students!=[]){
-                return view('student.summary',compact('students','TOTAL'));
+                return view('summaries.summary',compact('students','TOTAL'));
                
             }else{
                 $student = tblscholars::find($id);
@@ -60,17 +61,18 @@ class TablePaymentController extends Controller
             'month' => 'required',
             'year' => 'required',
             'amount' => 'required',
-            'dateofpayment'=> 'required',
+           
         ]);
+        $students =tblscholars::where('id',$id)->get();
         $student = new tblpayments([
             'payid' => $id,
             'month' => $request->get('month'),
             'year' => $request->get('year'),
             'amount' => $request->get('amount'),
-            'dateofpayment' => $request->get('dateofpayment'), 
+            'dateofpayment' => Carbon::now()->format('Y-m-d'), 
         ]);
         $student->save();
-        return redirect('/list');
+        return view('student.message',compact('students'));
     }
 
  
@@ -90,7 +92,7 @@ class TablePaymentController extends Controller
 
 
         // return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
-        return view('student.summaryBatch',compact('students','student'));
+        return view('summaries.summaryBatch',compact('students','student'));
     }
 
 
@@ -116,38 +118,25 @@ class TablePaymentController extends Controller
 
 
        
-        return view('student.summarymonth',compact('students','student'));
+        return view('summaries.summarymonth',compact('students','student'));
         // dd($student);
     }
    
     function summaryDate(Request $request){
-        $date=strtotime($request->get('date'));
+        $date=strtotime($request->get('datesearch'));
         $dates=date('Y-m-d',$date);
+        $students =tblpayments::where('dateofpayment',$dates)->get();
         $student = DB::table('tblpayments')
         ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
         ->select('tblpayments.dateofpayment')
         ->where('tblpayments.dateofpayment', '=', $dates)
         ->sum('tblpayments.amount');
-        return redirect()->back()->with('alert', 'The total amount is '.$dates.' is ' .$student.' pesos');
-    }
-    public function mgaSummary(Request $request){
-        $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
-        $payments = Tblpayments::all();
-        $month = "";
-        $datas=[];
-        foreach($payments as $payment){
-           
-          if(($payment->month)==$month){
-                $month=$payment->month;
-            }else{
-                $month=$payment->month;
-                array_push($datas,$payment->month);
-            }   
-             }
-        //    return view('student.welcome',compact('students','datas'));
-        dd($datas);
       
+        // return redirect()->back()->with('alert', 'The total amount is '.$dates.' is ' .$student.' pesos');
+        return view('summaries.summarydate',compact('students','student'));
+        // dd($dates);
     }
+   
         public function summaries(){
         
          return view('student.summaries');

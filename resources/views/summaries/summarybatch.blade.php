@@ -1,60 +1,45 @@
+@extends('student.layout')
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
+<link rel="stylesheet" href="{{url('css/batch_summary.css')}}">
 
-#myInput {
-  background-image: url('/css/searchicon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #ddd;
-  font-size: 18px;
-}
-
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #f1f1f1;
-}
-</style>
 </head>
+
+
 <body>
 
-<h2>My Customers</h2>
 
+
+
+<div style="margin-top:4%">
+<div class="title">
+  <br><br>
+<center><h1  >Passarelles Numeriques Philippines Scholars</h1></center>
+</div>
+</div>
+@if(Session::has('success'))
+
+<div class="alert alert-success">
+
+<strong>Success: </strong>{{ Session::get('success') }}
+
+</div>
+
+@endif
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
 
 <table id="myTable">
-   <th>
+  
     <tr class="header">
         <th>Name of the student</th>     
         <th>Batch</th>
         <th>Email</th>
+      
         <th>Action</th>
     </tr>
-   </th>
-    
+   
   <tbody>
   @foreach($students as $scholars)
             <tr>
@@ -64,15 +49,33 @@
                 <td>{{$scholars->batch}}</td>
                
                 <td>{{$scholars->email}}</td>
+               
+                
+ 
+              
                 <td><a href="{{url('summary',$scholars->id)}}"><button>View Summary</button>
            </a></td>
-
-                   
             </tr>
-            @endforeach
+
+            @endforeach  
+
+
+          
+           
+          
   
   </tbody>
+  <div>
+<h2 style="margin-top:-3%;float:right;margin-right:10%">Total: {{$student}} pesos</h2>
+<h2 style="margin-top:-3%;float:right;margin-right:20%">Batch {{$scholars->batch}}</h2>
+</div>
 </table>
+<footer >
+        @include('student.footer')
+    </footer>
+
+
+
 
 <script>
 function myFunction() {
