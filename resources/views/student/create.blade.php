@@ -72,7 +72,9 @@
 
 
 
-
+<footer >
+        @include('student.footer')
+    </footer>
 </body>
 
 

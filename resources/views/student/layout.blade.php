@@ -100,10 +100,30 @@
                   </ul>
                 </li>
                 <li class="dropdown-submenu">
+                  <a  class="dropdown-item" tabindex="-1" href="#">Month</a>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a tabindex="-1" href="{{url('summarymonth','January')}}">January</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','February')}}">February</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','March')}}">March</a></li>
+                    <li class="dropdown-item"><a tabindex="-1" href="{{url('summarymonth','April')}}">April</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','May')}}">May</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','June')}}">June</a></li>
+                    <li class="dropdown-item"><a tabindex="-1" href="{{url('summarymonth','July')}}">July</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','August')}}">August</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','September')}}">September</a></li>
+                    <li class="dropdown-item"><a tabindex="-1" href="{{url('summarymonth','October')}}">October</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','November')}}">November</a></li>
+                    <li class="dropdown-item"><a href="{{url('summarymonth','December')}}">December</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu">
                   <a  class="dropdown-item" tabindex="-1" href="#">Date</a>
                   <ul class="dropdown-menu">
+                    <form Method="get" action="{{url('summaryDate')}}">
                     <p>Date:</p>
-                   <input type="text" id="datepicker" class="date">
+                   <input type="text" id="datepicker" class="date" name="datesearch">
+                 <button typr="submit">Search</button>
+                   </form >
                   </ul>
                 </li>
               </ul>

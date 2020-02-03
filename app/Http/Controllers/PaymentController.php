@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\tblscholars;
 use App\tblpayments;
+use Session;
 use Illuminate\Support\Facades\DB;
 class PaymentController extends Controller
 {
@@ -56,17 +56,9 @@ class PaymentController extends Controller
             'email' => $request->get('email'), 
         ]);
         $student->save();
-        // $ID=$student->id;
-        // $students = new tblpayments([
-        //     'month' => '0',
-        //     'payid' => $ID,
-        //     'year' => 0,
-        //     'amount' => 0,
-        //     'dateofpayment' => date('Y-m-d H:i:s'),   
-        // ]);
-        // $students->save();     
-        // return redirect()->route('welcome');
-        return redirect('/welcome');
+        Session::flash('success','Student Successfully Added');
+
+        return redirect('/list');
 
         // return redirect()->routes('student.create')->with('success','Data Added');
     }
@@ -131,7 +123,7 @@ class PaymentController extends Controller
         $student->email = $request->get('email');
         
         $student->save();
-        return redirect('/welcome')->with('success','Student Updated');
+        return redirect('/list')->with('alert', 'Student Added  ');
     }
 
     /**
@@ -146,7 +138,7 @@ class PaymentController extends Controller
     
     public function welcome(Request $request){
         $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
-            return view('student.welcome',compact('students'));
+            return view('student.welcome',compact('students'))->with('no',1);
       
         
       

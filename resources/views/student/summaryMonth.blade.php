@@ -1,53 +1,89 @@
-<link rel="stylesheet" href="{{url('css/form.css')}}">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-
 @extends('student.layout')
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{url('css/batch_summary.css')}}">
+
+</head>
 
 
-@section('content')
-
-@if (session('alert'))
-    <div class="alert alert-success">
-        {{ session('alert') }}
-    </div>
-@endif
-<a href="{{url('student/create')}}" class="btn btn-info" role="button">Add Student</a>
-
-
-<br><br>
+<body>
 
 
 
-<form >  
-        {{csrf_field()}}
+
+<div style="margin-top:4%">
+<div class="title">
+  <br><br>
+<center><h1  >Passarelles Numeriques Philippines Scholars</h1></center>
+</div>
+</div>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<table id="myTable">
+  
+    <tr class="header">
+        <th>Month</th>     
+        <th>Year</th>
+        <th>Amount</th>
+      
+        <th>Date of Payment</th>
+    </tr>
+   
+  <tbody>
+  @foreach($students as $scholars)
+            <tr>
+                <td>{{$scholars->month}}</td>
+                
+               
+                <td>{{$scholars->year}}</td>
+      
+                <td>{{$scholars->amount}}</td>
+                <td>{{$scholars->dateofpayment}}</td>
+            </tr>
+
+            @endforeach  
 
 
-</form>
-    <table border=1 id="customers">
-        <tr>
-            <th>Month</th>
-            <th>Year</th>
-            <th>Amount</th>
-            <th>Date of Payments</th>
-            <th>Action</th>
+          
            
-            
-        </tr>
-        @foreach($students as $student)
-        <tr>
-            <td>{{$student['month']}}</td>
-            <td>{{$student['year']}}</td>
-            <td>{{$student['amount']}}</td>
-            <td>{{$student['dateofpayment']}}</td>
-            <td><a href="{{url('summary',$student->id)}}"><button>View Summary</button></a></td>
-        </tr>
+          
+  
+  </tbody>
+  <div>
+<h2 style="margin-top:-3%;float:right;margin-right:5%">Total: {{$student}} pesos</h2>
+<h2 style="margin-top:-3%;float:right;margin-right:15%">Month of  {{$scholars->month}}</h2>
+</div>
+</table>
+<footer >
+        @include('student.footer')
+    </footer>
 
-        @endforeach
-            <a href="{{url('summaryMonth',$student->month)}}" class="btn btn-info" role="button">Total Amount for  {{$student->month}}</a>
-            <a href="/welcome" class="btn btn-info" role="button">Back</a>
 
-    </table>
-@endsection('content')
-@section('footer','Facebook   Twitter    Instagram     Youtube')   
 
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>

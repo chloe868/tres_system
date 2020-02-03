@@ -40,8 +40,7 @@ Route::get('pay/{id}','TablePaymentController@pay')->name('pay');
 Route::get('summarybatch/{batch}','TablePaymentController@summarybatch')->name('summarybatch');
 Route::get('total/{id}','TablePaymentController@total');
 Route::get('summaryYear/{batch}','TablePaymentController@summaryYear');
-Route::get('summaryMonth/{month}','TablePaymentController@summaryMonth');
-Route::get('displayByMonth/{month}','TablePaymentController@displayByMonth');
+Route::get('summarymonth/{month}','TablePaymentController@summarymonth');
 Route::get('summaryDate','TablePaymentController@summaryDate')->name('summaryDate');
 Route::get('displayByDate','TablePaymentController@displayByDate')->name('displayByDate');
 

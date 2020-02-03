@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
-
+use Session;
 use App\tblpayments;
 use App\tblscholars;
 class TablePaymentController extends Controller
@@ -28,19 +28,25 @@ class TablePaymentController extends Controller
         ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
         ->where('tblscholars.id', '=', $id)
         ->sum('tblpayments.amount');
-        if($TOTAL == 1200){
+       
+        if($TOTAL == 12000){
+            Session::flash('success','Humana Kag Bayad');   
+            return redirect('/list');
             
         }
-         
+         else{
+            if($students!=[]){
+                return view('student.summary',compact('students','TOTAL'));
+               
+            }else{
+                $student = tblscholars::find($id);
+                Session::flash('success','Wala pakay nabayad');
+                return view('student.pay',compact('student'));
+            }
+         }
 
         
-        if($students!=[]){
-            return view('student.summary',compact('students','TOTAL'));
-           
-        }else{
-            $student = tblscholars::find($id);
-            return view('student.pay',compact('student'));
-        }
+       
 
 
             
@@ -86,11 +92,10 @@ class TablePaymentController extends Controller
         // return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
         return view('student.summaryBatch',compact('students','student'));
     }
-    public function total($id)
-    {
-          // $students = tblscholars::all();
-                    
-    }
+
+
+
+
     function summaryYear($batch ){
         // $myMonth = $request->get('year');
         $students = DB::table('tblpayments')
@@ -99,20 +104,22 @@ class TablePaymentController extends Controller
         ->sum('tblpayments.amount');
         return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
     }
-    function summaryMonth($month ){
-        // $myMonth = $request->get('year');
-        $students = DB::table('tblpayments')
-        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+    function summarymonth($month ){
+        
+        $students =tblpayments::where('month',$month)->get();
+        $student = DB::table('tblpayments')
+        ->select('tblpayments.amount')
         ->where('tblpayments.month', '=', $month)
         ->sum('tblpayments.amount');
-        return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
-        // dd($students);
+        
+
+
+
+       
+        return view('student.summarymonth',compact('students','student'));
+        // dd($student);
     }
-    function displayByMonth($month){
-        $students =tblpayments::where('month',$month)->get();
-        // return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
-        return view('student.summaryMonth',compact('students'));
-    }
+   
     function summaryDate(Request $request){
         $date=strtotime($request->get('date'));
         $dates=date('Y-m-d',$date);
@@ -121,20 +128,11 @@ class TablePaymentController extends Controller
         ->select('tblpayments.dateofpayment')
         ->where('tblpayments.dateofpayment', '=', $dates)
         ->sum('tblpayments.amount');
-        return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
+        return redirect()->back()->with('alert', 'The total amount is '.$dates.' is ' .$student.' pesos');
     }
-    function displayByDate(Request $request){
-        $date=strtotime($request->get('date'));
-        $dates=date('Y-m-d',$date);
-        $students =tblpayments::where('dateofpayment',$dates)->get();
-        return view('student.summaryDate',compact('students'));
-    }
-
-
     public function mgaSummary(Request $request){
         $students = Tblscholars::with('payment')->orderBy('batch','DESC')->get();
         $payments = Tblpayments::all();
-
         $month = "";
         $datas=[];
         foreach($payments as $payment){

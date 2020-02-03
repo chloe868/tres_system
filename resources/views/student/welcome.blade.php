@@ -3,60 +3,32 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
+<link rel="stylesheet" href="{{url('css/batch_summary.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-#myInput {
 
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  width: 20%;
-  margin-left:5%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  
-}
-
-#myTable {
-  border-collapse: collapse;
-  width: 90%;
-  margin-left:5%;
-  border: 1px solid #ddd;
-  font-size: 18px;
- 
-}
-
-#myTable th{
-  background-color:#ff9933;
-}
-#myTable th, #myTable td {
-  text-align: left;
-  padding: 12px;
-  
-}
-}
-.title{
-    margin-bottom:5%;
-}
-
-#myTable tr {
-  border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-  background-color: #ffb061;
-}
-</style>
 </head>
+@if(Session::has('success'))
+
+<div class="alert alert-success">
+
+<strong>Success: </strong>{{ Session::get('success') }}
+
+</div>
+
+@endif
 <body>
+
 <div style="margin-top:4%">
 <div class="title">
   <br><br>
 <center><h1  >Passarelles Numeriques Philippines Scholars</h1></center>
+</div>
+<div style="float:right;margin-right:5%" >
+<a href="/student/create" class="icon-block">
+<i class="fa fa-plus-circle fa-2x"> Add Student</i>
+   
+    </a>
 </div>
 </div>
 
@@ -65,16 +37,23 @@
 <table id="myTable" >
   
     <tr class="header">
+
+        <th>N0.</th>
         <th>Name of the student</th>     
         <th>Batch</th>
+        
         <th>Email</th>
         <th>Action</th>
     </tr>
 
     
   <tbody>
+    
   @foreach($students as $scholars)
+ 
             <tr>
+              <td>{{$no++}}.</td>
+
                 <td>{{$scholars->first_name}} {{$scholars->middle_name}} {{$scholars->last_name}}</td>
                 
                
@@ -89,9 +68,13 @@
             @endforeach
   
   </tbody>
+  
+  
 </table>
 
-
+<footer >
+        @include('student.footer')
+    </footer>
 <script>
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -111,6 +94,13 @@ function myFunction() {
     }       
   }
 }
+</script>
+<script>
+  var msg = '{{Session::get('alert')}}';
+  var exist = '{{Session::has('alert')}}';
+  if(exist){
+    alert(msg);
+  }
 </script>
 
 </body>
