@@ -14,6 +14,14 @@
 Route::view('/', 'main');
 Auth::routes();
 
+//Login and Register
+Route::get('/login/user', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/user', 'Auth\RegisterController@showAdminRegisterForm');
+Route::post('/login/user', 'Auth\LoginController@adminLogin');
+Route::post('/register/user', 'Auth\RegisterController@createAdmin');
+Route::view('/home', 'home')->middleware('auth');
+Route::view('/user', 'user');
+
 //Viewing home after the user successfully login 
 Route::view('/home', 'student.home')->middleware('auth');
 Route::view('/admin', 'admin');
