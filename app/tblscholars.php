@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use DB;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +22,10 @@ class tblscholars extends Model
     public function payment()
     {
         return $this->hasMany('App\tblpayments', 'payid', 'id');
+    }
+    public function getuser(){
+        $records = DB::table('tblscholars')->all()->get()->toArray();
+        return $records;
     }
     
 }

@@ -14,47 +14,36 @@ class TablePaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    //This is a summary for the every student how much they pay
+    
     public function summary($id)
     {
-          // $students = tblscholars::all();
-   $students= DB::table('tblscholars as t1')
-        
-        ->join("tblpayments as t2", "t2.payid","=","t1.id")  
-        
-        ->where('t1.id', '=', $id)
-        ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid","t1.last_name","t1.first_name","t1.middle_name")
-        ->get()
-        ->toArray();
-        $TOTAL = DB::table('tblpayments')
-        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
-        ->where('tblscholars.id', '=', $id)
-        ->sum('tblpayments.amount');
-       
-        if($TOTAL >= 12000){
-            Session::flash('success','Humana Kag Bayad');   
-            return redirect('/list');
-            
-        }
-         else{
-            if($students!=[]){
-                return view('summaries.summary',compact('students','TOTAL'));
-               
-            }else{
-                $student = tblscholars::find($id);
-                Session::flash('success','Wala pakay nabayad');
-                return view('student.pay',compact('student'));
+        $students= DB::table('tblscholars as t1')
+            ->join("tblpayments as t2", "t2.payid","=","t1.id")  
+            ->where('t1.id', '=', $id)
+            ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid","t1.last_name","t1.first_name","t1.middle_name")
+            ->get()
+            ->toArray();
+            $TOTAL = DB::table('tblpayments')
+            ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
+            ->where('tblscholars.id', '=', $id)
+            ->sum('tblpayments.amount');
+            if($TOTAL >= 12000){
+                Session::flash('success','Humana Kag Bayad');   
+                return redirect('/list');
             }
-         }
-
-        
-       
-
-
-            
-          
-            
-    }
-
+            else{
+                if($students!=[]){
+                    return view('summaries.summary',compact('students','TOTAL'));
+                }else{
+                    $student = tblscholars::find($id);
+                    Session::flash('success','Wala pakay nabayad');
+                    return view('student.pay',compact('student'));
+                }
+            }           
+        }
+    //This is a function for storing the payments of the student into a database
     public function stores(Request $request,$id)
     {
         $this->validate($request,[
@@ -72,56 +61,34 @@ class TablePaymentController extends Controller
             'dateofpayment' => Carbon::now()->format('Y-m-d'), 
         ]);
         $student->save();
+        Session::flash('success','Your Payment is added');
+
         return view('student.message',compact('students'));
     }
-
- 
+    //This is a  function for viewing the form to pay
     public function pay($id){
         $student = tblscholars::find($id);
         return view('student.pay',compact('student'));
     }
+    // This is a function for the summary for every batch
     public function summarybatch($batch){
-        
         $students =tblscholars::where('batch',$batch)->get();
         $student = DB::table('tblpayments')
         ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
         ->where('tblscholars.batch', '=', $batch)
         ->sum('tblpayments.amount');
-        
-
-
-
-        // return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
         return view('summaries.summaryBatch',compact('students','student'));
     }
-
-
-
-
-    function summaryYear($batch ){
-        // $myMonth = $request->get('year');
-        $students = DB::table('tblpayments')
-        ->join('tblscholars', 'tblpayments.payid', '=', 'tblscholars.id')
-        ->where('tblscholars.batch', '=', $batch)
-        ->sum('tblpayments.amount');
-        return redirect()->back()->with('alert', 'The total amount is '.$students.' pesos');
-    }
+    //This is a function for the summary of payments every month
     function summarymonth($month ){
-        
         $students =tblpayments::where('month',$month)->get();
         $student = DB::table('tblpayments')
         ->select('tblpayments.amount')
         ->where('tblpayments.month', '=', $month)
         ->sum('tblpayments.amount');
-        
-
-
-
-       
         return view('summaries.summarymonth',compact('students','student'));
-        // dd($student);
     }
-   
+   //This is a function for the summary of the date of payment by the students
     function summaryDate(Request $request){
         $date=strtotime($request->get('datesearch'));
         $dates=date('Y-m-d',$date);
@@ -131,15 +98,6 @@ class TablePaymentController extends Controller
         ->select('tblpayments.dateofpayment')
         ->where('tblpayments.dateofpayment', '=', $dates)
         ->sum('tblpayments.amount');
-      
-        // return redirect()->back()->with('alert', 'The total amount is '.$dates.' is ' .$student.' pesos');
         return view('summaries.summarydate',compact('students','student'));
-        // dd($dates);
     }
-   
-        public function summaries(){
-        
-         return view('student.summaries');
-        }
-      
 }

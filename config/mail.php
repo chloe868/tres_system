@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'npasserelles@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'PN     '),
+        'name' => env('MAIL_FROM_NAME', 'Passerelles Numeriques'),
     ],
 
     /*

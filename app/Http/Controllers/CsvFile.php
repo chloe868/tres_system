@@ -4,24 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Exports\CsvExport;
+use App\Exports\UsersExport;
+
 use App\Imports\CsvImport;
 use App\tblscholars;
 use Maatwebsite\Excel\Facades\Excel;
 
 
-use App\User; 
+
 
 class CsvFile extends Controller
 {
     function index()
     {
-        $data = User::latest()->paginate(10);
-        return view('csvfiles.csv_file',compact('data'))->with('i',(request()->input('page',1)-1)*10);
+        $students = tblscholars::all();
+        return view('csvfiles.csv_file',compact('students'));
     }
-    public function csv_export(){
-        return Excel::download(new CsvExport, 'sample.csv');
+    public function export(){
 
+        $users = tblscholars::all();
+ 
+        foreach ($users as $user) {
+ 
+                $userData[] = [
+                    'ID' => $user->id,
+                    'first_name' => $user->first_name,
+                    'middle_name' => $user->middle_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'contact_number' => $user->contact_number,
+                    'batch' => $user->batch,
+                ];
+            }
+ 
+        // Generate and return the spreadsheet
+        Excel::create('users', function ($excel) use ($userData) {
+ 
+            // Build the spreadsheet, passing in the users array
+            $excel->sheet('sheet1', function ($sheet) use ($userData) {
+                $sheet->fromArray($userData);
+            });
+ 
+        })->download('csv');
     }
+    //This is a function to import another batch through cvs file
     public function csv_import(){
         Excel::import(new CsvImport,request()->file('file' ));
         $students = tblscholars::all();
