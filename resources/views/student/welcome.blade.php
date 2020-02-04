@@ -47,7 +47,7 @@
                     <td>{{$scholars->batch}}</td>
                     <td>{{$scholars->email}}</td>
                     <td>{{$scholars->contact_number}}</td>
-                    <td><a href="{{url('summary',$scholars->id)}}"><button>View Summary</button>
+                    <td><a href="{{url('summary',$scholars->id)}}"><button type="button" class="btn btn-primary">View Summary</button>
                         </a></td>
                 </tr>
                 @endforeach
