@@ -22,4 +22,6 @@ class tblpayments extends Model
     protected $hidden = [
         'id'
     ];
+
+   
 }

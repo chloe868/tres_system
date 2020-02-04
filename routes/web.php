@@ -10,33 +10,46 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//main page
+Route::view('/', 'main');
+Auth::routes();
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::get('/student', function () {
-//     return view('student.welcome','StudentsController@welcome');
-// });
+//Login and Register
+Route::get('/login/user', 'Auth\LoginController@showAdminLoginForm');
+Route::get('/register/user', 'Auth\RegisterController@showAdminRegisterForm');
+Route::post('/login/user', 'Auth\LoginController@adminLogin');
+Route::post('/register/user', 'Auth\RegisterController@createAdmin');
+Route::view('/home', 'home')->middleware('auth');
+Route::view('/user', 'user');
 
+//Viewing home after the user successfully login 
+Route::view('/home', 'student.home')->middleware('auth');
+Route::view('/admin', 'admin');
 
-// Auth::routes();
+//After importing data
+Route::get('list', 'PaymentController@welcome')->name('import');
 
-Route::get('welcome', 'PaymentController@welcome')->name('update');
-Route::resource('student','PaymentController');
-Route::post('/dashboard/store', 'PaymentController@store')->name('store');
-Route::get('/delete/{id}','PaymentController@delete');
-Route::post('/update/{id}','PaymentController@update')->name('update');
-
-
-
-
+//Storing the data
 Route::post('stores/{id}', 'TablePaymentController@stores')->name('stores');
-// Route::post('summary/{id}', 'TablePaymentController@summary')->name('summary');
-// Route::resource('student','TablePaymentController');
-Route::get('summary/{id}','TablePaymentController@summary');
+Route::post('/dashboard/store', 'PaymentController@store')->name('store');
+//Paying the parent's counterpart
 Route::get('pay/{id}','TablePaymentController@pay')->name('pay');
 
+Route::get('/student/create','PaymentController@create');
 
-// Route::get('/live_search', 'LiveSearch@index');
-// Route::get('/live_search/action', 'LiveSearch@action')->name('live_search.action');
 
+//Summaries for Month, Date, Batch and INdividual
+Route::get('summarybatch/{batch}','TablePaymentController@summarybatch')->name('summarybatch');
+Route::get('summarymonth/{month}','TablePaymentController@summarymonth');
+Route::get('summaryDate','TablePaymentController@summaryDate')->name('summaryDate');
+Route::get('summary/{id}','TablePaymentController@summary');
+
+//Importing and Exporting CSV File
+Route::get('csv_file','CsvFile@index');
+Route::get('csv_file/export','CsvFile@csv_export')->name('export');
+Route::post('list','CsvFile@csv_import')->name('import');
+
+
+//Sending and viewing a message to a student 
+Route:: get('/pay/send/email', 'SendController@sendEmail')->name('mail');
+Route::view('send/message','student.message');

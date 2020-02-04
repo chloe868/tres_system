@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Admin;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -68,4 +70,23 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['url' => 'user']);
+    }
+
+    public function createAdmin(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+
+        ]);
+        return redirect()->intended('login/user');
+    }
+
 }
