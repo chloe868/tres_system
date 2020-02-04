@@ -20,7 +20,7 @@
 
                         <div class="card-body">
                             <form action="{{route('mail')}}" method="get">
-                            {{csrf_field()}}
+                            @csrf
                             <div class="input-group form-group">
                                     <i class="fa fa-user icon"></i>
                                     <input type="text" name="first_name" class="form-control"  placeholder="Enter Your Name"

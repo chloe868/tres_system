@@ -50,7 +50,6 @@
     </footer>
 </body>
 
-// This is  a function for search bar
 <script>
 function myFunction() {
     var input, filter, table, tr, td, i, txtValue;

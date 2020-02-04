@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\tblpayments;
 class tblpaymentsTableSeeder extends Seeder
 {
     /**
@@ -11,10 +11,7 @@ class tblpaymentsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('tblpayments')->insert(
-            array(
-                array('payid' => '1','month' => 'January', 'year' => '2020',  'amount' => '500', 'dateofpayment' => '2020-1-2'),
-            )
-        );
+        $count = 20;
+        factory(tblpayments::class, $count)->create();
     }
 }

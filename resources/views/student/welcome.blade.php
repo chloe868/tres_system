@@ -10,11 +10,6 @@
 </head>
 
 
-@if(Session::has('success'))
-<div class="alert alert-success">
-    <strong>Success: </strong>{{ Session::get('success') }}
-</div>
-@endif
 
 <body>
     <div>
@@ -25,6 +20,11 @@
                     <h1>Passarelles Numeriques Philippines Scholars</h1>
                 </center>
             </div>
+            @if(Session::has('success'))
+            <div class="alert alert-success">
+                <strong>Success: </strong>{{ Session::get('success') }}
+            </div>
+            @endif
             <div style="float:right;margin-right:5%">
                 <a href="/student/create" class="icon-block">
                     <i class="fa fa-plus-circle fa-2x"> Add Student</i>
@@ -47,7 +47,8 @@
                     <td>{{$scholars->batch}}</td>
                     <td>{{$scholars->email}}</td>
                     <td>{{$scholars->contact_number}}</td>
-                    <td><a href="{{url('summary',$scholars->id)}}"><button type="button" class="btn btn-primary">View Summary</button>
+                    <td><a href="{{url('summary',$scholars->id)}}"><button type="button" class="btn btn-primary">View
+                                Summary</button>
                         </a></td>
                 </tr>
                 @endforeach
@@ -59,33 +60,33 @@
     </div>
 
     <script>
-    function myFunction() {
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
             }
         }
-    }
     </script>
     <script>
-    var msg = '{{Session::get('
-    alert ')}}';
-    var exist = '{{Session::has('
-    alert ')}}';
-    if (exist) {
-        alert(msg);
-    }
+        var msg = '{{Session::get('
+        alert ')}}';
+        var exist = '{{Session::has('
+        alert ')}}';
+        if (exist) {
+            alert(msg);
+        }
     </script>
 </body>
 

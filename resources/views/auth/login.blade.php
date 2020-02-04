@@ -24,7 +24,7 @@
                             name="email" value="{{ old('email') }}" placeholder="Email" required autofocus>
                         @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('email') }}</strong>
+                            <strong>Invalid Email or Password</strong>
                         </span>
                         @endif
                     </div>
