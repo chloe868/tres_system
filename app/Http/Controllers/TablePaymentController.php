@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Session;
 use App\tblpayments;
 use App\tblscholars;
+use App\Http\Requests\TablePaymentRequest;
 class TablePaymentController extends Controller
 {
     /**
@@ -22,7 +23,7 @@ class TablePaymentController extends Controller
         $students= DB::table('tblscholars as t1')
             ->join("tblpayments as t2", "t2.payid","=","t1.id")  
             ->where('t1.id', '=', $id)
-            ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid","t1.last_name","t1.first_name","t1.middle_name")
+            ->select("t2.month","t2.year","t2.amount","t2.dateofpayment","t2.payid","t1.email","t1.last_name","t1.first_name","t1.middle_name")
             ->get()
             ->toArray();
             $TOTAL = DB::table('tblpayments')
@@ -43,15 +44,11 @@ class TablePaymentController extends Controller
                 }
             }           
         }
+
+
     //This is a function for storing the payments of the student into a database
-    public function stores(Request $request,$id)
+    public function stores(TablePaymentRequest $request,$id)
     {
-        $this->validate($request,[
-            'month' => 'required',
-            'year' => 'required',
-            'amount' => 'required',
-           
-        ]);
         $students =tblscholars::where('id',$id)->get();
         $student = new tblpayments([
             'payid' => $id,
@@ -65,11 +62,14 @@ class TablePaymentController extends Controller
 
         return view('student.message',compact('students'));
     }
+
+
     //This is a  function for viewing the form to pay
     public function pay($id){
         $student = tblscholars::find($id);
         return view('student.pay',compact('student'));
     }
+
     // This is a function for the summary for every batch
     public function summarybatch($batch){
         $students =tblscholars::where('batch',$batch)->get();
@@ -79,6 +79,7 @@ class TablePaymentController extends Controller
         ->sum('tblpayments.amount');
         return view('summaries.summaryBatch',compact('students','student'));
     }
+
     //This is a function for the summary of payments every month
     function summarymonth($month ){
         $students =tblpayments::where('month',$month)->get();
@@ -88,6 +89,7 @@ class TablePaymentController extends Controller
         ->sum('tblpayments.amount');
         return view('summaries.summarymonth',compact('students','student'));
     }
+
    //This is a function for the summary of the date of payment by the students
     function summaryDate(Request $request){
         $date=strtotime($request->get('datesearch'));

@@ -6,6 +6,7 @@ use App\tblscholars;
 use App\tblpayments;
 use Session;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PaymentRequest;
 class PaymentController extends Controller
 {
     public function create()
@@ -14,16 +15,8 @@ class PaymentController extends Controller
     }
 
     //This is a function to store the students information to the database
-    public function store(Request $request)
+    public function store(PaymentRequest $request)
     {
-        $this->validate($request,[
-            'first_name' => 'required',
-            'middle_name' => 'required',
-            'last_name' => 'required',
-            'batch' => 'required',
-            'contact_number'=> 'required|digits:11',
-            'email' => 'required','unique',
-        ]);
         $student = new tblscholars([
             'first_name' => $request->get('first_name'),
             'middle_name' => $request->get('middle_name'),

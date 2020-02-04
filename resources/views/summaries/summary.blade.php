@@ -40,8 +40,9 @@
 
                     <h2 style="margin-top:-3%;float:right;margin-right:5%">Total: {{$TOTAL}} pesos</h2>
                     <center>
-                        <h2 style="margin-top:-10%;float:right;margin-right:15%">{{$scholars->first_name}}
+                        <h2 style="margin-top:-14%;float:right;margin-right:15%">{{$scholars->first_name}}
                             {{$scholars->middle_name}} {{$scholars->last_name}}</h2>
+                            <h3 style="margin-top:-10%;float:right">{{$scholars->email}}</h3>
                         <a href="{{url('pay',$scholars->payid)}}"><button
                                 style="margin-top:-6%;float:right;margin-right:20%" class="btn btn-primary"
                                 id="paybtn">PAY
