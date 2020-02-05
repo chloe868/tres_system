@@ -1,6 +1,5 @@
 <?php
 
-use App\tblscholars;
 use Illuminate\Database\Seeder;
 
 class tblscholarsTableSeeder extends Seeder
@@ -12,7 +11,10 @@ class tblscholarsTableSeeder extends Seeder
      */
     public function run()
     {
-        $count = 20;
-        factory(tblscholars::class, $count)->create();
+        DB::table('tblscholars')->insert(
+            array(
+                array('first_name' => 'Jorgielyn','middle_name' => 'Mendez', 'last_name' => 'Iran',  'email' => 'irangabriellef14@gmail.com', 'contact_number' => '09460306015','batch' => '2020'),
+            )
+            );
     }
 }
